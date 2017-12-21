@@ -17,6 +17,7 @@
   "author": "Renaldo Noma <renaldonoma@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "aws-sdk": "^2.173.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
