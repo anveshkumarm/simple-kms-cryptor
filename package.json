@@ -1,0 +1,22 @@
+{
+  "name": "simple-kms-cryptor",
+  "version": "1.0.0",
+  "description": "Simple KMS Cryptor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dynamodb",
+    "aws",
+    "encrypt",
+    "crypto",
+    "decrypt",
+    "encryption"
+  ],
+  "author": "Renaldo Noma <renaldonoma@gmail.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
