@@ -1,4 +1,4 @@
 # simple-kms-cryptor
-Simple cryptor using AWS KMS key
+Simple cryptor using AWS KMS key 
 
-https://travis-ci.org/renaldonoma/simple-kms-cryptor.svg?branch=master
+[![Build Status](https://travis-ci.org/renaldonoma/simple-kms-cryptor.svg?branch=master)](https://travis-ci.org/renaldonoma/simple-kms-cryptor)
