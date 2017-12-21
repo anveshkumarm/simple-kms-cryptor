@@ -4,7 +4,7 @@
   "description": "Simple KMS Cryptor",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --ci"
   },
   "keywords": [
     "dynamodb",
@@ -18,5 +18,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.0.3",
+    "jest": "^22.0.3"
   }
 }

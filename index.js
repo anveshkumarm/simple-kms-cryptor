@@ -2,7 +2,9 @@ const AWS = require('aws-sdk');
 const _ = require('lodash');
 
 
-function encrypt(input) {
+
+
+function encrypt(input, outputType) {
     if (_.isNil(input)) {
         return Promise.reject(new Error('missing argument to encrypt'));
     }
@@ -44,16 +46,30 @@ function encrypt(input) {
                 throw err;
             }
     
-            console.log('encrypted:',data);
-            resolve(data);
+            if (outputType === 'base64') {
+                resolve(data.CiphertextBlob.toString('base64'));
+                return;
+            }
+
+            resolve(data.CiphertextBlob);
         });
     })
 }
 
-function decrypt(ciphertext) {
+function decrypt(ciphertext, inputType) {
     let kms = this.kms; //new AWS.KMS(this.config);
+
+    let binaryBlob = ciphertext;
+
+    if (inputType === 'base64') {
+        if (!_.isString(ciphertext)) {
+            return Promise.reject(new Error('ciphertext is not a base64 string'))
+        }    
+        binaryBlob = new Buffer(ciphertext, 'base64');
+    }
+
     let params = {
-        CiphertextBlob: ciphertext
+        CiphertextBlob: binaryBlob
     }
 
     return new Promise((resolve, reject) => {
@@ -62,7 +78,6 @@ function decrypt(ciphertext) {
                 throw err;
             }
 
-            console.log('decrypted:', data);
             let jsonString = data.Plaintext.toString('utf8');
             let obj = JSON.parse(jsonString);
 
@@ -83,7 +98,7 @@ function decrypt(ciphertext) {
     })
 }
 
-function DynamoDBCrypto(config) {
+function KMSCrypto(config) {
     if (_.isEmpty(config)) {
         throw new Error('missing config');
     }
@@ -91,10 +106,10 @@ function DynamoDBCrypto(config) {
     this.kms = new AWS.KMS(this.config);
 }
 
-DynamoDBCrypto.prototype = {
+KMSCrypto.prototype = {
     encrypt,
     decrypt
 }
 
-module.exports = DynamoDBCrypto;
+module.exports = KMSCrypto;
 
