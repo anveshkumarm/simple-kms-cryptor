@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const _ = require('lodash');
+const proxy = require('proxy-agent');
 
 
 
@@ -104,6 +105,13 @@ function KMSCrypto(config) {
     }
     this.config = config;
     this.kms = new AWS.KMS(this.config);
+    if(this.config.proxy){
+        AWS.config.update({
+            httpOptions: {
+                agent: proxy(this.config.proxy)
+            }
+        });
+    }
 }
 
 KMSCrypto.prototype = {
